@@ -1,62 +1,77 @@
-const fs = require("fs");
-const { prompt } = require("inquirer");
-const path= require("path");
-const generateMarkdown= require("./utils/generateMarkdown");
+const inquirer = require("inquirer");
+const fs = require('fs');
+var generateMarkdown = require("./utils/generateMarkdown.js");
+const { url } = require("inspector");
 
-// question to generate README
-const question = [
+const questions = [
+
     {
         type: "input",
-        message: "what is your project title?",
-        name: "title"
+        message: "What is your project title?",
+        name: "title",
     },
     {
         type: "input",
-        message: "Describe your project",
+        message: "Provide a description",
         name: "description"
     },
     {
         type: "input",
-        message: "What are the steps required to install your project?",
+        message: "What are the installations to follow?",
         name: "installation"
     },
-    {  
+    {
+        type: "list",
+        message: "What type of license did you use?",
+        name: "license",
+        choices: [
+            "GPL",
+            "MIT",
+            "BSD",
+            "Apache 2.0",
+        ]
+    },
+    {
         type: "input",
-        message: "Provide instructions for use.",
+        message: "Enter any Usage Information",
         name: "usage"
     },
     {
-        type: "checkbox",
-        message: "Select license",
-        name: "license",
-        choices: []
-    }            
-]             
+        type: "input",
+        message: "Provide Contribution Guidelines",
+        name: "contributing"
+    },
+    {
+        type: "input",
+        message: "How do run test Instructions.",
+        name: "test"
+    },
+    {
+        type: "input",
+        message: "What is your GitHub username.",
+        name: "username"
+    },
+    {
+        type: "input",
+        message: "what is your email.",
+        name: "email",
+    }
 
-console.log('PLEASE BEGIN BY ANSWERING THE FIRST QUESTION');
+];
 
 // function to write README file
 function writeToFile(fileName, data) {
-    return fs.writeFileSync(fileName,data); 
+    fs.writeFile(fileName, data, err => {
+        if (err) console.log(err);
+    });
 }
-
 // function to initialize program
-// loop over questions
-// use inquirer to ask questions
-// write to README.md
 function init() {
-    var text = "";
-    var i;
-for (i = 0; i < questions.length; i++) {
-  text += questions[i].name + ", ";
-   text += questions[i].message + ", ";
-   if (questions[i].type=="checkbox"){
-   		for (j= 0; j < questions[i].choices.length; j++){
-        }
-   }
-   
-}
-    //writeToFile();
+    inquirer.prompt(questions).then(answers => {
+        console.log(answers);
+        const answersData = generateMarkdown(answers);
+        writeToFile("generateReadMe/README.md", answersData);
+    });
 }
 
 // function call to initialize program
