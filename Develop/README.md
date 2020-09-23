@@ -1,6 +1,7 @@
-# ReadMe Generateor
+# ReadMe generator
 ## Description
-this application that will generate a README.md.
+This application will generate a REAdME.dm.
+https://drive.google.com/file/d/1WGEPSMS1gvjSHSfLbJQNW8nHIvTq3buD/view
 ## Table Of Contents
 * [Installation](#Installation)
 * [Usage](#Usage)
@@ -9,7 +10,7 @@ this application that will generate a README.md.
 * [Questions](#Questions)
 * [License](#License)
 ## Installation
-npm init then npm install inquirer --save
+npm init then npm install --save
 ## Usage
 N/A
 ## Contributors
