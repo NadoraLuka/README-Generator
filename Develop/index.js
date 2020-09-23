@@ -70,7 +70,7 @@ function init() {
     inquirer.prompt(questions).then(answers => {
         console.log(answers);
         const answersData = generateMarkdown(answers);
-        writeToFile("generateReadMe/README.md", answersData);
+        writeToFile("README.md", answersData);
     });
 }
 
